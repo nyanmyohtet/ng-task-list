@@ -1,0 +1,18 @@
+<ng-template #editTransaction let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Edit Transaction</h4>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="addEditForm" novalidate>
+      <div class="mb-3">
+        <label for="transactionDescription" class="form-label">Description</label>
+        <textarea class="form-control" id="transactionDescription" rows="3" formControlName="description"></textarea>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-dark" (click)="c('Save click')"
+      [disabled]="addEditForm.pristine || addEditForm.invalid">Save</button>
+    <button type="button" class="btn btn-outline-dark" (click)="d('Cancel edit click')">Cancel</button>
+  </div>
+</ng-template>

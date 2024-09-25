@@ -1,0 +1,33 @@
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/mixins";
+
+// TODO: define colors file and use from there
+:host {
+  --transaction-item-container-row-margin: 22px 0;
+  --transaction-item-container-row-border: 1px solid #0a5bc4;
+  --transaction-item-container-row-padding: 10px;
+  --transaction-item-container-row-completed-background-color: #7baf7b;
+  --transaction-item-container-row-completed-border: 1px solid #015801;
+  --transaction-item-container-row-completed-color: white;
+
+  @include media-breakpoint-down(sm) {
+    // put mobile styling/adjustments here
+  }
+
+  .transaction-wrap {
+    .row {
+      margin: var(--transaction-item-container-row-margin);
+      border: var(--transaction-item-container-row-border);
+      padding: var(--transaction-item-container-row-padding);
+
+      &.completed {
+        background-color: var(
+          --transaction-item-container-row-completed-background-color
+        );
+        border: var(--transaction-item-container-row-completed-border);
+        color: var(--transaction-item-container-row-completed-color);
+      }
+    }
+  }
+}

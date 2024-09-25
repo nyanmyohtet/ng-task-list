@@ -1,0 +1,28 @@
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/mixins";
+
+:host {
+  --transaction-list-compnent-font-weight: 700;
+  --transaction-list-compnent-color: $primary;
+  --transaction-list-compnent-cancel-search-top: 9px;
+  --transaction-list-compnent-cancel-search-right: 10px;
+
+  @include media-breakpoint-down(sm) {
+    // put mobile styling/adjustments here
+  }
+
+  .header {
+    font-weight: var(--transaction-list-compnent-font-weight);
+    color: var(--transaction-list-compnent-color);
+  }
+
+  .container {
+    .position-relative {
+      .cancel-search {
+        top: var(--transaction-list-compnent-cancel-search-top);
+        right: var(--transaction-list-compnent-cancel-search-right);
+      }
+    }
+  }
+}

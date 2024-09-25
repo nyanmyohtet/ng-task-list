@@ -1,0 +1,17 @@
+
+  <div class="row" [hidden]="transactionItem.isHidden">
+    <div class="col-md-1 text-md-end">{{transactionItem.id}}</div>
+    <div class="col-md-2 text-md-end">{{transactionItem.customerId}}</div>
+    <div class="col-md-2 text-md-end">{{transactionItem.accountNumber}}</div>
+    <div class="col-md-6 text-md-start">{{transactionItem.description}}</div>
+    <div class="col-md-1 text-center">
+      <div class="d-flex flex-row-reverse justify-content-center mb-3 align-content-center">
+        <button class="p-1 btn btn-link">
+          <i class="bi bi-pencil-square" role="button" (click)="openEditTransactionModal(transactionItem)"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+<app-add-edit-transaction [openModal]="openAddEditModal" (onCompleteAction)="editTransactionItem.next($event)">
+</app-add-edit-transaction>
