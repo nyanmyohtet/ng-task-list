@@ -9,6 +9,9 @@ export class AuthGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(): boolean {
+    // disable authorization
+    return true;
+
     if (localStorage.getItem("authToken")) {
       return true;
     } else {
