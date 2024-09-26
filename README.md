@@ -9,6 +9,11 @@ A simple Angular application for managing tasks with dependencies. Users can che
 - **Task Counts**: Displays the count of tasks categorized by type (e.g., BUG, IMPR, IMPL, INFRA).
 - **Bootstrap 5**: Responsive design using Bootstrap 5 for styling.
 
+## Screen Shot
+
+![image](https://github.com/user-attachments/assets/7af0506f-25e1-4df7-a280-62adcd576d8e)
+
+
 ## Technologies Used
 
 - **Angular**: Frontend framework for building the application.
