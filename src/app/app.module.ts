@@ -4,8 +4,8 @@ import { NgModule } from "@angular/core";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { HttpClientModule, HttpClient } from "@angular/common/http";
-import { TaskItemComponent } from "./transaction-list/task-item/task-item.component";
-import { TransactionListComponent } from "./transaction-list/transaction-list.component";
+import { TaskItemComponent } from "./task-list/task-item/task-item.component";
+import { TaskListComponent } from "./task-list/task-list.component";
 import { MessageService } from "./shared/message.service";
 import { HttpErrorHandler } from "./shared/http-error-handler.service";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
@@ -17,7 +17,7 @@ import { SignInComponent } from "./sign-in/sign-in.component";
   declarations: [
     AppComponent,
     TaskItemComponent,
-    TransactionListComponent,
+    TaskListComponent,
     AddEditTransactionComponent,
     SignInComponent,
   ],

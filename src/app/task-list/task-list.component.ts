@@ -2,21 +2,21 @@ import { Component, OnInit } from "@angular/core";
 import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 import { AuthService } from "../auth.service";
-import { TransactionFilterType } from "./transaction-filter-type";
+import { TaskFilterType } from "./task-filter-type";
 import { TaskItem } from "./task-item/task-item";
-import { TransactionService } from "./transaction.service";
+import { TaskService } from "./task.service";
 
 @Component({
-  selector: "app-transaction-list",
-  templateUrl: "./transaction-list.component.html",
-  styleUrls: ["./transaction-list.component.scss"],
+  selector: "app-task-list",
+  templateUrl: "./task-list.component.html",
+  styleUrls: ["./task-list.component.scss"],
 })
-export class TransactionListComponent implements OnInit {
+export class TaskListComponent implements OnInit {
   public transactions$: TaskItem[]; // async list of Transaction items
   public selectedFilterType: string; // the current filter type (like 'by label) which used to filter transaction by
   public filterValue: string = "";
 
-  public readonly filterTypes: TransactionFilterType[] = [
+  public readonly filterTypes: TaskFilterType[] = [
     { displayName: "Customer ID", apiKey: "customerId" },
     { displayName: "Account Number", apiKey: "accountNumber" },
     { displayName: "Description", apiKey: "description" },
@@ -45,7 +45,7 @@ export class TransactionListComponent implements OnInit {
   public selectedFilterDisplayName: string;
 
   constructor(
-    private transactionService: TransactionService,
+    private transactionService: TaskService,
     private authService: AuthService
   ) {}
 

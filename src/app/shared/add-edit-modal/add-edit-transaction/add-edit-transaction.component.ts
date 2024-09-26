@@ -9,7 +9,7 @@ import {
 } from "@angular/core";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { Subject, Subscription } from "rxjs";
-import { TaskItem } from "src/app/transaction-list/task-item/task-item";
+import { TaskItem } from "src/app/task-list/task-item/task-item";
 import {
   UntypedFormGroup,
   UntypedFormBuilder,

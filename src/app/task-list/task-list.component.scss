@@ -1,0 +1,28 @@
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/mixins";
+
+:host {
+  --task-list-compnent-font-weight: 700;
+  --task-list-compnent-color: $primary;
+  --task-list-compnent-cancel-search-top: 9px;
+  --task-list-compnent-cancel-search-right: 10px;
+
+  @include media-breakpoint-down(sm) {
+    // put mobile styling/adjustments here
+  }
+
+  .header {
+    font-weight: var(--task-list-compnent-font-weight);
+    color: var(--task-list-compnent-color);
+  }
+
+  .container {
+    .position-relative {
+      .cancel-search {
+        top: var(--task-list-compnent-cancel-search-top);
+        right: var(--task-list-compnent-cancel-search-right);
+      }
+    }
+  }
+}

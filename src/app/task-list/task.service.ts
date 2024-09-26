@@ -12,12 +12,12 @@ import { Observable } from "rxjs";
 @Injectable({
   providedIn: "root",
 })
-export class TransactionService {
+export class TaskService {
   private handleError: HandleError; // for general error handling (can be improved)
   private transactionBaseUrl = `${environment.apiUrl}/api/v1/transactions`;
 
   constructor(private http: HttpClient, httpErrorHandler: HttpErrorHandler) {
-    this.handleError = httpErrorHandler.createHandleError("TransactionService");
+    this.handleError = httpErrorHandler.createHandleError("TaskService");
   }
 
   public getTransactionList(

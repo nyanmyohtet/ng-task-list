@@ -17,7 +17,7 @@ export class SignInComponent {
   public onSubmit(): void {
     this.authService.signIn(this.username, this.password).subscribe({
       next: () => {
-        this.router.navigate(["/transaction-list"]);
+        this.router.navigate(["/task-list"]);
       },
       error: (err) => {
         this.errorMessage = "Invalid credentials. Please try again.";
