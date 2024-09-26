@@ -3,7 +3,7 @@ import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 import { AuthService } from "../auth.service";
 import { TransactionFilterType } from "./transaction-filter-type";
-import { TransactionItem } from "./transaction-item/transaction-item";
+import { TaskItem } from "./task-item/task-item";
 import { TransactionService } from "./transaction.service";
 
 @Component({
@@ -12,7 +12,7 @@ import { TransactionService } from "./transaction.service";
   styleUrls: ["./transaction-list.component.scss"],
 })
 export class TransactionListComponent implements OnInit {
-  public transactions$: TransactionItem[]; // async list of Transaction items
+  public transactions$: TaskItem[]; // async list of Transaction items
   public selectedFilterType: string; // the current filter type (like 'by label) which used to filter transaction by
   public filterValue: string = "";
 
@@ -22,14 +22,14 @@ export class TransactionListComponent implements OnInit {
     { displayName: "Description", apiKey: "description" },
   ];
 
-  public openAddEditModal: Subject<TransactionItem> = new Subject(); // the caller for add/edit modal
+  public openAddEditModal: Subject<TaskItem> = new Subject(); // the caller for add/edit modal
   public onAddEditComplete: Subject<void> = new Subject(); // the ajax complete result callback
 
-  public get transactions(): Readonly<TransactionItem[]> {
+  public get transactions(): Readonly<TaskItem[]> {
     return this._transactionList;
   }
 
-  private _transactionList: TransactionItem[] = [];
+  private _transactionList: TaskItem[] = [];
   private _totalItems: number = 0;
   public _itemsPerPage: number = 10;
   public _currentPage: number = 1;
@@ -37,13 +37,10 @@ export class TransactionListComponent implements OnInit {
   public pageSizes: number[] = [10, 20, 50, 100];
 
   private _filterBSDestroyed$: Subject<string> = new Subject();
-  private _getTransactionListDestroyed$: Subject<TransactionItem[]> =
-    new Subject();
+  private _getTransactionListDestroyed$: Subject<TaskItem[]> = new Subject();
   private _deleteTransactionItemDestroyed$: Subject<any> = new Subject();
-  private _addTransactionItemDestroyed$: Subject<TransactionItem> =
-    new Subject();
-  private _editTransactionItemDestroyed$: Subject<TransactionItem> =
-    new Subject();
+  private _addTransactionItemDestroyed$: Subject<TaskItem> = new Subject();
+  private _editTransactionItemDestroyed$: Subject<TaskItem> = new Subject();
 
   public selectedFilterDisplayName: string;
 
@@ -114,9 +111,9 @@ export class TransactionListComponent implements OnInit {
     this.performSearch();
   }
 
-  public editTransactionItem(transactionItem: TransactionItem): void {
+  public editTransactionItem(taskItem: TaskItem): void {
     this.transactionService
-      .editTransactionItem(transactionItem)
+      .editTransactionItem(taskItem)
       .pipe(takeUntil(this._editTransactionItemDestroyed$))
       .subscribe(() => {
         this.performSearch();

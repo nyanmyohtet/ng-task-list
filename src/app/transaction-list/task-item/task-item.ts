@@ -1,4 +1,4 @@
-export class TransactionItem {
+export class TaskItem {
   constructor(
     public id: number,
     public customerId: string,

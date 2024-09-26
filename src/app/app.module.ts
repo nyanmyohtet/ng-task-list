@@ -4,7 +4,7 @@ import { NgModule } from "@angular/core";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { HttpClientModule, HttpClient } from "@angular/common/http";
-import { TransactionItemComponent } from "./transaction-list/transaction-item/transaction-item.component";
+import { TaskItemComponent } from "./transaction-list/task-item/task-item.component";
 import { TransactionListComponent } from "./transaction-list/transaction-list.component";
 import { MessageService } from "./shared/message.service";
 import { HttpErrorHandler } from "./shared/http-error-handler.service";
@@ -16,7 +16,7 @@ import { SignInComponent } from "./sign-in/sign-in.component";
 @NgModule({
   declarations: [
     AppComponent,
-    TransactionItemComponent,
+    TaskItemComponent,
     TransactionListComponent,
     AddEditTransactionComponent,
     SignInComponent,

@@ -9,7 +9,7 @@ import {
 } from "@angular/core";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { Subject, Subscription } from "rxjs";
-import { TransactionItem } from "src/app/transaction-list/transaction-item/transaction-item";
+import { TaskItem } from "src/app/transaction-list/task-item/task-item";
 import {
   UntypedFormGroup,
   UntypedFormBuilder,
@@ -22,9 +22,8 @@ import {
   styleUrls: ["./add-edit-transaction.component.scss"],
 })
 export class AddEditTransactionComponent implements OnInit {
-  @Input() openModal: Subject<TransactionItem> = new Subject();
-  @Output() onCompleteAction: EventEmitter<TransactionItem> =
-    new EventEmitter();
+  @Input() openModal: Subject<TaskItem> = new Subject();
+  @Output() onCompleteAction: EventEmitter<TaskItem> = new EventEmitter();
 
   @ViewChild("editTransaction") public editTransaction: TemplateRef<any>;
 

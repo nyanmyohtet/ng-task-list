@@ -5,7 +5,7 @@ import {
   HandleError,
   HttpErrorHandler,
 } from "../shared/http-error-handler.service";
-import { TransactionItem } from "./transaction-item/transaction-item";
+import { TaskItem } from "./task-item/task-item";
 import { catchError, map } from "rxjs/operators";
 import { Observable } from "rxjs";
 
@@ -56,19 +56,17 @@ export class TransactionService {
       );
   }
 
-  public editTransactionItem(
-    transactionItem: TransactionItem
-  ): Observable<TransactionItem> {
+  public editTransactionItem(taskItem: TaskItem): Observable<TaskItem> {
     const token = localStorage.getItem("authToken");
 
     const headers = new HttpHeaders({
       Authorization: token ? `Bearer ${token}` : "",
     });
     return this.http
-      .patch<TransactionItem>(
-        `${this.transactionBaseUrl}/${transactionItem.id}`,
+      .patch<TaskItem>(
+        `${this.transactionBaseUrl}/${taskItem.id}`,
         {
-          description: transactionItem.description,
+          description: taskItem.description,
         },
         { headers }
       )
@@ -78,8 +76,8 @@ export class TransactionService {
       );
   }
 
-  private _transform(dbTransactionItem: any): TransactionItem {
-    return new TransactionItem(
+  private _transform(dbTransactionItem: any): TaskItem {
+    return new TaskItem(
       dbTransactionItem.id,
       dbTransactionItem.customerId,
       dbTransactionItem.accountNumber,

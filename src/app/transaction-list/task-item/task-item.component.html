@@ -1,0 +1,16 @@
+<div class="row" [hidden]="taskItem.isHidden">
+  <div class="col-md-1 text-md-end">{{taskItem.id}}</div>
+  <div class="col-md-2 text-md-end">{{taskItem.customerId}}</div>
+  <div class="col-md-2 text-md-end">{{taskItem.accountNumber}}</div>
+  <div class="col-md-6 text-md-start">{{taskItem.description}}</div>
+  <div class="col-md-1 text-center">
+    <div class="d-flex flex-row-reverse justify-content-center mb-3 align-content-center">
+      <button class="p-1 btn btn-link">
+        <i class="bi bi-pencil-square" role="button" (click)="openEditTransactionModal(taskItem)"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<app-add-edit-transaction [openModal]="openAddEditModal" (onCompleteAction)="editTransactionItem.next($event)">
+</app-add-edit-transaction>
