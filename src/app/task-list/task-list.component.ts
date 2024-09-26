@@ -1,146 +1,65 @@
-import { Component, OnInit } from "@angular/core";
-import { Subject } from "rxjs";
-import { takeUntil } from "rxjs/operators";
-import { AuthService } from "../auth.service";
-import { TaskFilterType } from "./task-filter-type";
-import { TaskItem } from "./task-item/task-item";
-import { TaskService } from "./task.service";
+import { Component } from "@angular/core";
+
+interface Task {
+  type: string;
+  name: string;
+  deps: string[];
+  completed: boolean;
+}
 
 @Component({
   selector: "app-task-list",
   templateUrl: "./task-list.component.html",
   styleUrls: ["./task-list.component.scss"],
 })
-export class TaskListComponent implements OnInit {
-  public transactions$: TaskItem[]; // async list of Transaction items
-  public selectedFilterType: string; // the current filter type (like 'by label) which used to filter transaction by
-  public filterValue: string = "";
-
-  public readonly filterTypes: TaskFilterType[] = [
-    { displayName: "Customer ID", apiKey: "customerId" },
-    { displayName: "Account Number", apiKey: "accountNumber" },
-    { displayName: "Description", apiKey: "description" },
+export class TaskListComponent {
+  tasks: Task[] = [
+    { type: "BUG", name: "fix bug1", deps: [], completed: false },
+    { type: "BUG", name: "fix bug2", deps: [], completed: false },
+    { type: "IMPR", name: "refactor W", deps: [], completed: false },
+    {
+      type: "IMPL",
+      name: "implement feature X",
+      deps: ["fix bug2", "refactor W"],
+      completed: false,
+    },
+    {
+      type: "INFRA",
+      name: "release",
+      deps: ["fix bug1", "fix bug2", "implement feature X"],
+      completed: false,
+    },
+    { type: "INFRA", name: "deploy", deps: ["release"], completed: false },
   ];
 
-  public openAddEditModal: Subject<TaskItem> = new Subject(); // the caller for add/edit modal
-  public onAddEditComplete: Subject<void> = new Subject(); // the ajax complete result callback
+  getTaskCounts() {
+    const counts = {
+      BUG: 0,
+      IMPR: 0,
+      IMPL: 0,
+      INFRA: 0,
+    };
 
-  public get transactions(): Readonly<TaskItem[]> {
-    return this._transactionList;
+    this.tasks.forEach((task) => {
+      if (!task.completed) {
+        counts[task.type]++;
+      }
+    });
+
+    return counts;
   }
 
-  private _transactionList: TaskItem[] = [];
-  private _totalItems: number = 0;
-  public _itemsPerPage: number = 10;
-  public _currentPage: number = 1;
+  canCompleteTask(task: Task): boolean {
+    if (task.deps.length === 0) return true;
 
-  public pageSizes: number[] = [10, 20, 50, 100];
-
-  private _filterBSDestroyed$: Subject<string> = new Subject();
-  private _getTransactionListDestroyed$: Subject<TaskItem[]> = new Subject();
-  private _deleteTransactionItemDestroyed$: Subject<any> = new Subject();
-  private _addTransactionItemDestroyed$: Subject<TaskItem> = new Subject();
-  private _editTransactionItemDestroyed$: Subject<TaskItem> = new Subject();
-
-  public selectedFilterDisplayName: string;
-
-  constructor(
-    private transactionService: TaskService,
-    private authService: AuthService
-  ) {}
-
-  signOut(): void {
-    this.authService.signOut();
-  }
-
-  public ngOnInit(): void {
-    this.selectedFilterType = this.filterTypes[0].apiKey;
-    this.selectedFilterDisplayName = this.filterTypes[0].displayName;
-    this.getTransactionList({
-      customerId: "",
-      accountNumber: "",
-      description: "",
+    return task.deps.every((dep) => {
+      const depTask = this.tasks.find((t) => t.name === dep);
+      return depTask ? depTask.completed : false;
     });
   }
 
-  public ngOnDestroy(): void {
-    this._filterBSDestroyed$.complete();
-    this._getTransactionListDestroyed$.complete();
-    this._addTransactionItemDestroyed$.complete();
-    this._editTransactionItemDestroyed$.complete();
-    this._deleteTransactionItemDestroyed$.complete();
-  }
-
-  public getTransactionList(paramsObj?: any): void {
-    this.transactionService
-      .getTransactionList(paramsObj, this._currentPage, this._itemsPerPage)
-      .pipe(takeUntil(this._getTransactionListDestroyed$))
-      .subscribe((response) => {
-        this._transactionList = response.items;
-        this._totalItems = response.totalItems;
-      });
-  }
-
-  public chooseFilterType(displayName: string): void {
-    const selectedFilter = this.filterTypes.find(
-      (ft) => ft.displayName === displayName
-    );
-    if (selectedFilter) {
-      this.selectedFilterType = selectedFilter.apiKey;
-      this.selectedFilterDisplayName = selectedFilter.displayName;
-      this.performSearch();
-    }
-  }
-
-  public performSearch(): void {
-    const paramsObj: any = {
-      customerId: "",
-      accountNumber: "",
-      description: "",
-    };
-
-    if (this.selectedFilterType && this.filterValue) {
-      paramsObj[this.selectedFilterType] = this.filterValue;
-    }
-
-    this.getTransactionList(paramsObj);
-  }
-
-  public resetFilter(): void {
-    this.filterValue = "";
-    this.performSearch();
-  }
-
-  public editTransactionItem(taskItem: TaskItem): void {
-    this.transactionService
-      .editTransactionItem(taskItem)
-      .pipe(takeUntil(this._editTransactionItemDestroyed$))
-      .subscribe(() => {
-        this.performSearch();
-      });
-  }
-
-  public changePage(page: number): void {
-    if (page < 1 || page > this.totalPages) return;
-    this._currentPage = page;
-    this.performSearch();
-  }
-
-  public onItemsPerPageChange(value: string): void {
-    this._itemsPerPage = +value;
-    this._currentPage = 1;
-    this.performSearch();
-  }
-
-  public get pages(): number[] {
-    const pages = [];
-    for (let i = 1; i <= this.totalPages; i++) {
-      pages.push(i);
-    }
-    return pages;
-  }
-
-  public get totalPages(): number {
-    return Math.ceil(this._totalItems / this._itemsPerPage);
+  isDependencyCompleted(dep: string): boolean {
+    const depTask = this.tasks.find((t) => t.name === dep);
+    return depTask ? depTask.completed : false;
   }
 }
