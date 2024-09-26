@@ -16,9 +16,9 @@ describe("AppComponent", () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'ng-client'`, () => {
+  it(`should have as title 'ng-task-list'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual("ng-client");
+    expect(app.title).toEqual("ng-task-list");
   });
 });
