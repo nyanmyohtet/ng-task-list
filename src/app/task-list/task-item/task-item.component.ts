@@ -1,22 +1,17 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
-import { Subject } from "rxjs";
-import { TaskItem } from "./task-item";
+import { Component, Input } from "@angular/core";
+import { TaskItem } from "./task-item.model";
 
 @Component({
   selector: "app-task-item",
   templateUrl: "./task-item.component.html",
   styleUrls: ["./task-item.component.scss"],
 })
-export class TaskItemComponent implements OnInit {
-  @Input() taskItem: TaskItem;
-  @Output() editTransactionItem: EventEmitter<TaskItem> = new EventEmitter();
+export class TaskItemComponent {
+  @Input() task!: TaskItem;
+  @Input() canComplete!: boolean;
+  @Input() isDependencyCompleted!: (dep: string) => boolean;
 
-  public editSelectedTransaction: TaskItem;
-  public openAddEditModal: Subject<TaskItem> = new Subject();
-
-  constructor(private _modalService: NgbModal) {}
-
-  public ngOnInit(): void {}
-
+  toggleCompletion() {
+    this.task.completed = !this.task.completed;
+  }
 }

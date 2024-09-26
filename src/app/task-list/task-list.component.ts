@@ -1,12 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { TaskService } from "./task.service";
-
-interface Task {
-  type: string;
-  name: string;
-  deps: string[];
-  completed: boolean;
-}
+import { TaskItem } from "./task-item/task-item.model";
 
 @Component({
   selector: "app-task-list",
@@ -14,7 +8,7 @@ interface Task {
   styleUrls: ["./task-list.component.scss"],
 })
 export class TaskListComponent implements OnInit {
-  tasks: Task[] = [];
+  tasks: TaskItem[] = [];
 
   constructor(private taskService: TaskService) {}
 
@@ -22,7 +16,7 @@ export class TaskListComponent implements OnInit {
     this.tasks = this.taskService.getTasks();
   }
 
-  canCompleteTask(task: Task): boolean {
+  canCompleteTask(task: TaskItem): boolean {
     return this.taskService.canCompleteTask(task);
   }
 

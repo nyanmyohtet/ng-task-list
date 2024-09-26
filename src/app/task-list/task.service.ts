@@ -1,17 +1,11 @@
 import { Injectable } from "@angular/core";
-
-interface Task {
-  type: string;
-  name: string;
-  deps: string[];
-  completed: boolean;
-}
+import { TaskItem } from "./task-item/task-item.model";
 
 @Injectable({
   providedIn: "root",
 })
 export class TaskService {
-  private tasks: Task[] = [
+  private tasks: TaskItem[] = [
     { type: "BUG", name: "fix bug1", deps: [], completed: false },
     { type: "BUG", name: "fix bug2", deps: [], completed: false },
     { type: "IMPR", name: "refactor W", deps: [], completed: false },
@@ -30,11 +24,11 @@ export class TaskService {
     { type: "INFRA", name: "deploy", deps: ["release"], completed: false },
   ];
 
-  getTasks(): Task[] {
+  getTasks(): TaskItem[] {
     return this.tasks;
   }
 
-  canCompleteTask(task: Task): boolean {
+  canCompleteTask(task: TaskItem): boolean {
     if (task.deps.length === 0) return true; // No dependencies, can be completed
     return task.deps.every((dep) => {
       const depTask = this.tasks.find((t) => t.name === dep);
