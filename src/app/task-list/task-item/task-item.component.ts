@@ -19,8 +19,4 @@ export class TaskItemComponent implements OnInit {
 
   public ngOnInit(): void {}
 
-  public openEditTransactionModal(taskItem: TaskItem): void {
-    this.editSelectedTransaction = JSON.parse(JSON.stringify(taskItem)); // sending the deep copy to edit modal to not see dynamic updates on UI
-    this.openAddEditModal.next(this.editSelectedTransaction); // open edit modal and fill the values
-  }
 }

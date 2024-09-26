@@ -10,7 +10,6 @@ import { MessageService } from "./shared/message.service";
 import { HttpErrorHandler } from "./shared/http-error-handler.service";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { AddEditTransactionComponent } from "./shared/add-edit-modal/add-edit-transaction/add-edit-transaction.component";
 import { SignInComponent } from "./sign-in/sign-in.component";
 
 @NgModule({
@@ -18,7 +17,6 @@ import { SignInComponent } from "./sign-in/sign-in.component";
     AppComponent,
     TaskItemComponent,
     TaskListComponent,
-    AddEditTransactionComponent,
     SignInComponent,
   ],
   imports: [
